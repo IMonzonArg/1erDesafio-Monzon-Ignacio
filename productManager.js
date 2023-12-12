@@ -24,9 +24,9 @@ class ProductManager {
         const newObject = {
             id: newId,
             title: data.title,
-            price: data.price,
             stock: data.stock,
             photo: data.photo,
+            price: data.price,
         }; 
 
         productsArray.push(newObject);
