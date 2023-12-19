@@ -1,32 +1,29 @@
 const productsArray = [
-    { title: 'Vino', photo: 'ruta/producto1.jpg', price: 10, stock: 50 },
-    { title: 'Cerveza', photo: 'ruta/producto2.jpg', price: 8, stock: 30 },
-    { title: 'Coca Cola', photo: 'ruta/producto3.jpg', price: 5, stock: 100 },
-    { title: 'Pepsi', photo: 'ruta/producto4.jpg', price: 5, stock: 20 },
-    { title: 'Fernet', photo: 'ruta/producto5.jpg', price: 15, stock: 70 }
+    { id: 1, title: 'Vino', photo: 'ruta/producto1.jpg', price: 10, stock: 50 },
+    { id: 2, title: 'Cerveza', photo: 'ruta/producto2.jpg', price: 8, stock: 30 },
+    { id: 3, title: 'Coca Cola', photo: 'ruta/producto3.jpg', price: 5, stock: 100 },
+    { id: 4, title: 'Pepsi', photo: 'ruta/producto4.jpg', price: 5, stock: 20 },
+    { id: 5, title: 'Fernet', photo: 'ruta/producto5.jpg', price: 15, stock: 70 }
 ];
 
 class ProductManager {
-    static objects = [];
+    constructor() {}
 
-    constructor(object) {
-        this.id = ProductManager.objects.length === 0 ? 1 : ProductManager.objects[ProductManager.objects.length - 1].id + 1;
-        this.title = object.title;
-        this.photo = object.photo;
-        this.price = object.price;
-        this.stock = object.stock;
-        ProductManager.objects.push(this);
+    getNextProductId() {
+        return productsArray.length > 0
+            ? productsArray[productsArray.length - 1].id + 1
+            : 1;
     }
 
     create(data) {
-        const newId = ProductManager.objects.length === 0 ? 1 : ProductManager.objects[ProductManager.objects.length - 1].id + 1;
+        const newId = this.getNextProductId();
 
         const newObject = {
             id: newId,
             title: data.title,
-            price: data.price,
             stock: data.stock,
             photo: data.photo,
+            price: data.price,
         }; 
 
         productsArray.push(newObject);
@@ -40,27 +37,27 @@ class ProductManager {
         return productsArray.find(object => object.id === id);
     }
 }
+
 const usersArray = [
-    { name: 'Nicolas', photo: 'ruta/foto1.jpg', email: 'Nicolas@gmail.com' },
-    { name: 'Mateo', photo: 'ruta/foto2.jpg', email: 'Mateo@gmail.com' },
-    { name: 'Franco', photo: 'ruta/foto3.jpg', email: 'Franco@gmail.com' },
-    { name: 'Jose', photo: 'ruta/foto4.jpg', email: 'Jose@gmail.com' },
-    { name: 'Claudio', photo: 'ruta/foto5.jpg', email: 'Claudio@gmail.com' }
+    { id: 1, name: 'Nicolas', photo: 'ruta/foto1.jpg', email: 'Nicolas@gmail.com' },
+    { id: 2, name: 'Mateo', photo: 'ruta/foto2.jpg', email: 'Mateo@gmail.com' },
+    { id: 3, name: 'Franco', photo: 'ruta/foto3.jpg', email: 'Franco@gmail.com' },
+    { id: 4, name: 'Jose', photo: 'ruta/foto4.jpg', email: 'Jose@gmail.com' },
+    { id: 5, name: 'Claudio', photo: 'ruta/foto5.jpg', email: 'Claudio@gmail.com' }
 ];
 
-class UserManager {
-    static users = [];
 
-    constructor(user) {
-        this.id = UserManager.users.length === 0 ? 1 : UserManager.users[UserManager.users.length - 1].id + 1;
-        this.name = user.name;
-        this.photo = user.photo;
-        this.email = user.email;
-        UserManager.users.push(this);
+class UserManager {
+    constructor() {}
+
+    getNextUserId() {
+        return usersArray.length > 0
+            ? usersArray[usersArray.length - 1].id + 1
+            : 1;
     }
 
     create(data) {
-        const newId = UserManager.users.length === 0 ? 1 : UserManager.users[UserManager.users.length - 1].id + 1;
+        const newId = this.getNextUserId();
 
         const newUser = {
             id: newId,
@@ -81,4 +78,20 @@ class UserManager {
     }
 }
 
-//cambios realizados
+console.log("Productos Iniciales:", productsArray);
+console.log("Usuarios Iniciales:", usersArray);
+
+const productManager = new ProductManager();
+const userManager = new UserManager();
+
+productManager.create({ title: 'Whiskey', photo: 'ruta/producto6.jpg', price: 20, stock: 25 });
+userManager.create({ name: 'Laura', photo: 'ruta/foto6.jpg', email: 'Laura@gmail.com' });
+
+console.log('Productos después de agregar uno nuevo:', productManager.read());
+console.log('Usuarios después de agregar uno nuevo:', userManager.read());
+
+const productIdToFind = 3;
+console.log(`Producto con ID ${productIdToFind}:`, productManager.readOne(productIdToFind));
+
+const userIdToFind = 2;
+console.log(`Usuario con ID ${userIdToFind}:`, userManager.readOne(userIdToFind));
