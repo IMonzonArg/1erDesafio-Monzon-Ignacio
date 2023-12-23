@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Vino",
+    "photo": "ruta/producto1.jpg",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "title": "Cerveza",
+    "photo": "ruta/producto2.jpg",
+    "price": 8,
+    "stock": 30
+  },
+  {
+    "id": 3,
+    "title": "Coca Cola",
+    "photo": "ruta/producto3.jpg",
+    "price": 5,
+    "stock": 100
+  },
+  {
+    "id": 4,
+    "title": "Pepsi",
+    "photo": "ruta/producto4.jpg",
+    "price": 5,
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "title": "Fernet",
+    "photo": "ruta/producto5.jpg",
+    "price": 15,
+    "stock": 70
+  },
+  {
+    "id": 6,
+    "title": "Whiskey",
+    "stock": 25,
+    "photo": "ruta/producto6.jpg",
+    "price": 20
+  }
+]

@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const productsArray = [
     { id: 1, title: 'Vino', photo: 'ruta/producto1.jpg', price: 10, stock: 50 },
     { id: 2, title: 'Cerveza', photo: 'ruta/producto2.jpg', price: 8, stock: 30 },
@@ -6,37 +8,9 @@ const productsArray = [
     { id: 5, title: 'Fernet', photo: 'ruta/producto5.jpg', price: 15, stock: 70 }
 ];
 
-class ProductManager {
-    constructor() {}
-
-    getNextProductId() {
-        return productsArray.length > 0
-            ? productsArray[productsArray.length - 1].id + 1
-            : 1;
-    }
-
-    create(data) {
-        const newId = this.getNextProductId();
-
-        const newObject = {
-            id: newId,
-            title: data.title,
-            stock: data.stock,
-            photo: data.photo,
-            price: data.price,
-        }; 
-
-        productsArray.push(newObject);
-    }
-
-    read(){
-        return productsArray;
-    }
-
-    readOne(id) {
-        return productsArray.find(object => object.id === id);
-    }
-}
+// Escribir productos en archivo JSON
+fs.writeFileSync('./productos.json', JSON.stringify(productsArray, null, 2));
+console.log('Archivo productos.json creado correctamente.');
 
 const usersArray = [
     { id: 1, name: 'Nicolas', photo: 'ruta/foto1.jpg', email: 'Nicolas@gmail.com' },
@@ -46,17 +20,66 @@ const usersArray = [
     { id: 5, name: 'Claudio', photo: 'ruta/foto5.jpg', email: 'Claudio@gmail.com' }
 ];
 
+// Escribir usuarios en archivo JSON
+fs.writeFileSync('./usuarios.json', JSON.stringify(usersArray, null, 2));
+console.log('Archivo usuarios.json creado correctamente.');
 
-class UserManager {
-    constructor() {}
+class ProductManager {
+    constructor() {
+        this.filePath = './productos.json';
+    }
 
-    getNextUserId() {
-        return usersArray.length > 0
-            ? usersArray[usersArray.length - 1].id + 1
-            : 1;
+    getNextProductId() {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        const productsArray = JSON.parse(fileData);
+        return productsArray.length > 0 ? productsArray[productsArray.length - 1].id + 1 : 1;
     }
 
     create(data) {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        const productsArray = JSON.parse(fileData);
+        const newId = this.getNextProductId();
+
+        const newProduct = {
+            id: newId,
+            title: data.title,
+            stock: data.stock,
+            photo: data.photo,
+            price: data.price,
+        };
+
+        productsArray.push(newProduct);
+
+        fs.writeFileSync(this.filePath, JSON.stringify(productsArray, null, 2));
+        console.log('Producto agregado correctamente al archivo JSON.');
+    }
+
+    read() {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        return JSON.parse(fileData);
+    }
+
+    readOne(id) {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        const productsArray = JSON.parse(fileData);
+        return productsArray.find(product => product.id === id);
+    }
+}
+
+class UserManager {
+    constructor() {
+        this.filePath = './usuarios.json';
+    }
+
+    getNextUserId() {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        const usersArray = JSON.parse(fileData);
+        return usersArray.length > 0 ? usersArray[usersArray.length - 1].id + 1 : 1;
+    }
+
+    create(data) {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        const usersArray = JSON.parse(fileData);
         const newId = this.getNextUserId();
 
         const newUser = {
@@ -64,16 +87,22 @@ class UserManager {
             name: data.name,
             photo: data.photo,
             email: data.email,
-        }; 
+        };
 
         usersArray.push(newUser);
+
+        fs.writeFileSync(this.filePath, JSON.stringify(usersArray, null, 2));
+        console.log('Usuario agregado correctamente al archivo JSON.');
     }
 
-    read(){
-        return usersArray;
+    read() {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        return JSON.parse(fileData);
     }
 
     readOne(id) {
+        const fileData = fs.readFileSync(this.filePath, 'utf8');
+        const usersArray = JSON.parse(fileData);
         return usersArray.find(user => user.id === id);
     }
 }
