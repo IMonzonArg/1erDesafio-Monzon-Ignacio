@@ -1,0 +1,38 @@
+  [
+    {
+      "id": 1,
+      "name": "Nicolas",
+      "photo": "ruta/foto1.jpg",
+      "email": "Nicolas@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Mateo",
+      "photo": "ruta/foto2.jpg",
+      "email": "Mateo@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "Franco",
+      "photo": "ruta/foto3.jpg",
+      "email": "Franco@gmail.com"
+    },
+    {
+      "id": 4,
+      "name": "Jose",
+      "photo": "ruta/foto4.jpg",
+      "email": "Jose@gmail.com"
+    },
+    {
+      "id": 5,
+      "name": "Claudio",
+      "photo": "ruta/foto5.jpg",
+      "email": "Claudio@gmail.com"
+    },
+    {
+      "id": 6,
+      "name": "Laura",
+      "photo": "ruta/foto6.jpg",
+      "email": "Laura@gmail.com"
+    }
+  ]
